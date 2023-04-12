@@ -6,7 +6,7 @@ import ru.praktikum.diplom_2.model.User;
 
 import static io.restassured.RestAssured.given;
 
-public class UserClient extends BaseClient{
+public class UserClient extends BaseClient {
     private final String AUTH_URL = BASE_URL + "/api/auth";
 
     @Step("Create user")
@@ -40,7 +40,7 @@ public class UserClient extends BaseClient{
     }
 
     @Step("Change user data")
-    public Response changeUserData(User user, String  accessToken) {
+    public Response changeUserData(User user, String accessToken) {
         return given()
                 .header("Content-type", JSON)
                 .header("Authorization", accessToken)

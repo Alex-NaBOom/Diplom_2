@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import static io.restassured.RestAssured.given;
 
 public class OrderClient extends BaseClient {
-    private final String ORDERS_URL =BASE_URL + "/api/orders";
+    private final String ORDERS_URL = BASE_URL + "/api/orders";
 
     @Step("Get ingredients id")
 
@@ -21,7 +21,7 @@ public class OrderClient extends BaseClient {
     }
 
     @Step("Create order")
-    public Response createOrder(Order data, String  accessToken) {
+    public Response createOrder(Order data, String accessToken) {
         return given()
                 .header("Content-type", JSON)
                 .header("Authorization", accessToken)
@@ -32,7 +32,7 @@ public class OrderClient extends BaseClient {
     }
 
     @Step("Get user's orders")
-    public Response getUserOrders(String  accessToken) {
+    public Response getUserOrders(String accessToken) {
         return given()
                 .header("Content-type", JSON)
                 .header("Authorization", accessToken)

@@ -9,7 +9,8 @@ public class Order {
         this.ingredients = id;
     }
 
-    public Order() {}
+    public Order() {
+    }
 
     public ArrayList<String> getIngredients() {
         return ingredients;

@@ -29,7 +29,7 @@ public class ChangeUserDataTest {
     }
 
     @Before
-    public void setUp(){
+    public void setUp() {
         User user = UserDataGenerator.getGeneratedUser();
         Response response = userClient.createUser(user);
         accessToken = response.path("accessToken");

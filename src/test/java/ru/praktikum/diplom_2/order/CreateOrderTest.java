@@ -34,11 +34,13 @@ public class CreateOrderTest {
                 new AllureRestAssured()
         );
     }
+
     @Before
-    public void setUp(){
+    public void setUp() {
         orderIngredientsIdList = new Order(orderClient.getIngredientsId());
         user = UserDataGenerator.getGeneratedUser();
     }
+
     @Test
     @DisplayName("Creating order with authorization")
     public void createOrderWithAuthorizationTest() {
@@ -63,8 +65,9 @@ public class CreateOrderTest {
                 .body("success", equalTo(true))
                 .body("name", notNullValue());
     }
+
     @Test
-    @DisplayName("Creating order with valid id ingredient (hash)") //TODO
+    @DisplayName("Creating order with valid id ingredient (hash)")
     public void createOrderWithValidIdIngredientTest() {
         ArrayList<String> listWrongId = new ArrayList<>();
         listWrongId.add("61c0c5a71d1f82001bdaaa7a");
@@ -72,7 +75,7 @@ public class CreateOrderTest {
         Response response = orderClient.createOrder(new Order(listWrongId), "");
         response
                 .then()
-                .statusCode(200) // TODO
+                .statusCode(200)
                 .body("success", equalTo(true))
                 .body("name", notNullValue())
                 .body("order", notNullValue());
@@ -93,7 +96,7 @@ public class CreateOrderTest {
     @DisplayName("Creating order with invalid id ingredient (hash)")
     public void createOrderWithInvalidIdIngredientTest() {
         ArrayList<String> listWrongId = new ArrayList<>();
-        listWrongId.add("000000000");//TODO
+        listWrongId.add("000000000");
 
         Response response = orderClient.createOrder(new Order(listWrongId), "");
         response

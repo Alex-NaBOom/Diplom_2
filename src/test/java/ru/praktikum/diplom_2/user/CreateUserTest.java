@@ -19,10 +19,11 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 
 public class CreateUserTest {
 
-        private final UserClient userClient = new UserClient();
-        private User user;
-        private String accessToken;
-        private final static String FIELDLESS_ERROR = "Email, password and name are required fields"; // TODO
+    private final UserClient userClient = new UserClient();
+    private User user;
+    private String accessToken;
+    private final static String FIELDLESS_ERROR = "Email, password and name are required fields";
+
     @BeforeClass
     public static void globalSetUp() {
         RestAssured.filters(
@@ -31,51 +32,52 @@ public class CreateUserTest {
         );
     }
 
-        @Before
-        public void setUp() {
-            user = UserDataGenerator.getGeneratedUser();
-        }
+    @Before
+    public void setUp() {
+        user = UserDataGenerator.getGeneratedUser();
+    }
 
-        @Test
-        @DisplayName("Creating user")
-        public void createUserTest() {
-            Response response = userClient.createUser(user);
-            accessToken = response.path("accessToken");
-            response
-                    .then()
-                    .statusCode(200)
-                    .body("success", equalTo(true))
-                    .body("user", notNullValue())
-                    .body("accessToken", notNullValue())
-                    .body("refreshToken", notNullValue());
-        }
+    @Test
+    @DisplayName("Creating user")
+    public void createUserTest() {
+        Response response = userClient.createUser(user);
+        accessToken = response.path("accessToken");
+        response
+                .then()
+                .statusCode(200)
+                .body("success", equalTo(true))
+                .body("user", notNullValue())
+                .body("accessToken", notNullValue())
+                .body("refreshToken", notNullValue());
+    }
 
-        @Test
-        @DisplayName("Creating existing user")
-        public void createUserAlreadyExistsTest(){
-            User oldUser = UserDataGenerator.getGeneratedUser();
-            userClient.createUser(oldUser);
+    @Test
+    @DisplayName("Creating existing user")
+    public void createUserAlreadyExistsTest() {
+        User oldUser = UserDataGenerator.getGeneratedUser();
+        userClient.createUser(oldUser);
 
-            Response response2 = userClient.createUser(oldUser);
-            response2
-                    .then()
-                    .statusCode(403)
-                    .body("success", equalTo(false))
-                    .body("message",equalTo("User already exists"));
-        }
+        Response response2 = userClient.createUser(oldUser);
+        response2
+                .then()
+                .statusCode(403)
+                .body("success", equalTo(false))
+                .body("message", equalTo("User already exists"));
+    }
 
-        @Test
-        @DisplayName("Creating user without e-mail")
-        public void createUserWithoutEmail() {
-            User newUser = UserDataGenerator.getGeneratedUser();
-            newUser.email = "";
-            Response response = userClient.createUser(newUser);
-            response
-                    .then()
-                    .statusCode(403)
-                    .body("success", equalTo(false))
-                    .body("message", equalTo("Email, password and name are required fields"));
-        }
+    @Test
+    @DisplayName("Creating user without e-mail")
+    public void createUserWithoutEmail() {
+        User newUser = UserDataGenerator.getGeneratedUser();
+        newUser.email = "";
+        Response response = userClient.createUser(newUser);
+        response
+                .then()
+                .statusCode(403)
+                .body("success", equalTo(false))
+                .body("message", equalTo("Email, password and name are required fields"));
+    }
+
     @Test
     @DisplayName("Creating user without e-mail is Null")
     public void createUserWithoutEmailNull() {
@@ -88,18 +90,20 @@ public class CreateUserTest {
                 .body("success", equalTo(false))
                 .body("message", equalTo("Email, password and name are required fields"));
     }
+
     @Test
-          @DisplayName("Creating user without password")
-          public void createUserWithoutPassword() {
-              User newUser = UserDataGenerator.getGeneratedUser();
-              newUser.password = "";
-              Response response = userClient.createUser(newUser);
-              response
-                      .then()
-                      .statusCode(403)
-                      .body("success", equalTo(false))
-                      .body("message", equalTo("Email, password and name are required fields"));
-          }
+    @DisplayName("Creating user without password")
+    public void createUserWithoutPassword() {
+        User newUser = UserDataGenerator.getGeneratedUser();
+        newUser.password = "";
+        Response response = userClient.createUser(newUser);
+        response
+                .then()
+                .statusCode(403)
+                .body("success", equalTo(false))
+                .body("message", equalTo("Email, password and name are required fields"));
+    }
+
     @Test
     @DisplayName("Creating user without password is Null")
     public void createUserWithoutPasswordNull() {
@@ -112,18 +116,20 @@ public class CreateUserTest {
                 .body("success", equalTo(false))
                 .body("message", equalTo("Email, password and name are required fields"));
     }
-        @Test
-        @DisplayName("Creating user without name")
-        public void createUserWithoutName() {
-            User newUser = UserDataGenerator.getGeneratedUser();
-            newUser.name = "";
-            Response response = userClient.createUser(newUser);
-            response
-                    .then()
-                    .statusCode(403)
-                    .body("success", equalTo(false))
-                    .body("message", equalTo("Email, password and name are required fields"));
-        }
+
+    @Test
+    @DisplayName("Creating user without name")
+    public void createUserWithoutName() {
+        User newUser = UserDataGenerator.getGeneratedUser();
+        newUser.name = "";
+        Response response = userClient.createUser(newUser);
+        response
+                .then()
+                .statusCode(403)
+                .body("success", equalTo(false))
+                .body("message", equalTo("Email, password and name are required fields"));
+    }
+
     @Test
     @DisplayName("Creating user without name")
     public void createUserWithoutNameNull() {
@@ -136,20 +142,21 @@ public class CreateUserTest {
                 .body("success", equalTo(false))
                 .body("message", equalTo("Email, password and name are required fields"));
     }
-        @Test
-        @DisplayName("Creating user without data")
-        public void createUserWithoutData() {
-            User user = new User();
-            Response response = userClient.createUser(user);
-            response
-                    .then()
-                    .statusCode(403)
-                    .body("success", equalTo(false))
-                    .body("message",equalTo("Email, password and name are required fields"));
-        }
 
-        @After
-        public void tearDown() {
-            if (accessToken != null) userClient.deleteUser(accessToken);
-        }
+    @Test
+    @DisplayName("Creating user without data")
+    public void createUserWithoutData() {
+        User user = new User();
+        Response response = userClient.createUser(user);
+        response
+                .then()
+                .statusCode(403)
+                .body("success", equalTo(false))
+                .body("message", equalTo("Email, password and name are required fields"));
+    }
+
+    @After
+    public void tearDown() {
+        if (accessToken != null) userClient.deleteUser(accessToken);
+    }
 }

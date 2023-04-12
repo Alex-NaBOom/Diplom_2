@@ -31,7 +31,7 @@ public class UserLoginTest {
     }
 
     @Before
-    public void setUp(){
+    public void setUp() {
         user = UserDataGenerator.getGeneratedUser();
         Response response = userClient.createUser(user);
         accessToken = response.path("accessToken");
