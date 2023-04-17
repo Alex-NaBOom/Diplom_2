@@ -22,7 +22,7 @@ public class CreateUserTest {
     private final UserClient userClient = new UserClient();
     private User user;
     private String accessToken;
-    private final static String FIELDLESS_ERROR = "Email, password and name are required fields";
+
 
     @BeforeClass
     public static void globalSetUp() {
